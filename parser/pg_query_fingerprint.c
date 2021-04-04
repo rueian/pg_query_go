@@ -32,7 +32,7 @@ typedef struct FingerprintContext
 
 typedef struct FingerprintListContext
 {
-	XXH64_hash_t hash;
+	XXXH64_hash_t hash;
 	size_t list_pos;
 } FingerprintListContext;
 
@@ -235,7 +235,7 @@ PgQueryFingerprintResult pg_query_fingerprint_with_opts(const char* input, bool 
 
 	if (parsetree_and_error.tree != NULL || result.error == NULL) {
 		FingerprintContext ctx;
-		XXH64_canonical_t chash;
+		XXXH64_canonical_t chash;
 
 		_fingerprintInitContext(&ctx, printTokens);
 
@@ -261,7 +261,7 @@ PgQueryFingerprintResult pg_query_fingerprint_with_opts(const char* input, bool 
 		result.fingerprint = XXH3_64bits_digest(ctx.xxh_state);
 		_fingerprintFreeContext(&ctx);
 
-		XXH64_canonicalFromHash(&chash, result.fingerprint);
+		XXXH64_canonicalFromHash(&chash, result.fingerprint);
 		int err = asprintf(&result.fingerprint_str, "%02x%02x%02x%02x%02x%02x%02x%02x",
 						   chash.digest[0], chash.digest[1], chash.digest[2], chash.digest[3],
 						   chash.digest[4], chash.digest[5], chash.digest[6], chash.digest[7]);
